@@ -5,13 +5,16 @@
   "buildpacks": [
     {
       "url": "heroku/python"
+    },
+    {
+      "url": "heroku/nodejs"
     }
   ],
   "env": {
   },
   "formation": {
   },
-  "name": "healthdiary",
+  "name": "django_vue",
   "scripts": {
   },
   "stack": "heroku-18"

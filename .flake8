@@ -1,0 +1,8 @@
+[flake8]
+ignore = E501
+exclude =
+    # These orderbook files are from an external repo
+    orderbook\order.py,
+    orderbook\orderbook.py,
+    orderbook\orderlist.py,
+    orderbook\ordertree.py

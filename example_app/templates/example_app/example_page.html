@@ -1,0 +1,15 @@
+{% load render_bundle from webpack_loader %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+Hello from Django! I am going to tell Vue that {{ example_django_variable }}
+<body>
+    <div id="example" data-exampledjangovariable="{{ example_django_variable }}"></div>
+</body>
+
+{% render_bundle 'chunk-vendors' %}
+{% render_bundle 'example' %}
+</html>
