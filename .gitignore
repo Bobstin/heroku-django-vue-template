@@ -4,3 +4,5 @@ staticfiles
 .env
 *.sqlite3
 .idea
+/vue_built
+vue/webpack-stats.json
