@@ -20,5 +20,5 @@ from example_app import views
 app_name = 'example_app'
 
 urlpatterns = [
-    path('examplepage/', views.example_page, name='examplepage')
+    path('', views.example_page, name='examplepage'),
 ]
