@@ -19,7 +19,7 @@
       "description": "Tells django to always redirect users to the https version of the site.",
       "value": "1"
     },
-    "DEBUG": {
+    "DJANGO_DEBUG": {
       "description": "Tells django whether to run in debug mode. For security, this is set to zero by default, but you can likely set it to 1 in some environments to assist with debugging.",
       "value": "0"
     }
