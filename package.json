@@ -2,6 +2,6 @@
   "name": "example_app",
   "version": "0.1.0",
   "scripts": {
-    "postinstall": "ls && cd vue && ls && npm install && npm run build"
+    "postinstall": "cd vue && npm install && npm run build"
   }
 }
