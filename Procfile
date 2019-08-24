@@ -1,1 +1,1 @@
-web: gunicorn healthdiary.wsgi
+web: gunicorn django_vue.wsgi
