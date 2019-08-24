@@ -1,9 +1,10 @@
 <template>
-  <div>Hello from the component!
+  <div class="component-example">
+    Hello from the component!
 
-    Django told me that "{{exampledjangovariable}}"
+    Django told me that "{{ exampledjangovariable }}"
 
-    Vue told me that "{{exampleVueVariable}}"
+    Vue told me that "{{ exampleVueVariable }}"
   </div>
 </template>
 
@@ -25,4 +26,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+    .component-example {
+        color: #111;
+    }
 </style>

@@ -3,7 +3,10 @@
     id="example"
   >
     Hello from Vue! The value you passed from Django was "{{ exampledjangovariable }}".
-    <example-component :exampledjangovariable="exampledjangovariable" :exampleVueVariable="exampleVueVariable"></example-component>
+    <example-component
+      :exampledjangovariable="exampledjangovariable"
+      :example-vue-variable="exampleVueVariable"
+    />
   </div>
 </template>
 
@@ -11,23 +14,25 @@
 import ExampleComponent from './components/ExampleComponent.vue';
 
 
-
 export default {
     name: 'Example',
     components: { ExampleComponent },
-    data() {
-      return {
-        exampleVueVariable: "Vue is awesome for dynamic front ends!",
-      }
-    },
     props: {
         exampledjangovariable: {
             type: String,
             default() { return ''; },
         },
     },
+    data() {
+        return {
+            exampleVueVariable: 'Vue is awesome for dynamic front ends!',
+        };
+    },
 };
 </script>
 
 <style>
+    #example {
+        color: #111;
+    }
 </style>
