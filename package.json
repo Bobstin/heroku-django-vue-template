@@ -1,0 +1,7 @@
+{
+  "name": "example_app",
+  "version": "0.1.0",
+  "scripts": {
+    "postinstall": "npm install --prefix vue && npm build --prefix vue"
+  }
+}
