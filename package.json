@@ -3,5 +3,6 @@
   "version": "0.1.0",
   "scripts": {
     "postinstall": "cd vue && npm install --only=prod && npm install --only=dev && npm run build && npm prune --production"
-  }
+  },
+  "cacheDirectories": ["vue/node_modules"]
 }
