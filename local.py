@@ -16,7 +16,7 @@ def cli():
 @cli.command()
 @click.option('--django/--no-django', default=True)
 @click.option('--npm/--no-npm', default=True)
-def start(django, bokeh, celery, persistance, orderbook, replay, beat, nginx, npm):
+def start(django, npm):
     processes = []
     try:
         if django:
