@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 import os
 import dj_database_url
 import django_heroku
+from kombu.common import Queue
+from datetime import timedelta
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -172,3 +174,24 @@ else:
     EMAIL_PORT = 587
     EMAIL_USE_TLS = True
     EMAIL_HOST_PASSWORD = os.environ.get('SENDGRID_PASSWORD')
+
+# Celery Settings
+CELERY_BROKER_URL = os.environ.get('CLOUDAMQP_URL')
+CELERY_RESULT_BACKEND = os.environ.get('REDIS_URL')
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+BROKER_POOL_LIMIT = 1  # Will decrease connection usage
+BROKER_HEARTBEAT = None  # We're using TCP keep-alive instead
+BROKER_CONNECTION_TIMEOUT = 30  # May require a long timeout due to Linux DNS timeouts etc
+CELERY_EVENT_QUEUE_EXPIRES = 60  # Will delete all celeryev. queues without consumers after 1 minute.
+CELERYD_PREFETCH_MULTIPLIER = 1  # Disable prefetching, it causes problems and doesn't help performance
+CELERY_ACKS_LATE = True
+CELERY_TASK_DEFAULT_QUEUE = 'default'
+CELERY_QUEUES = (Queue('default'), )
+CELERY_BEAT_SCHEDULE = {
+    'example_beat_task': {
+        'task': 'example_app.tasks.example_beat_task',
+        'schedule': timedelta(minutes=1),
+    },
+}
