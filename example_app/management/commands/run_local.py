@@ -5,7 +5,7 @@ from subprocess import Popen
 
 from django.core.management.base import BaseCommand
 
-APP_NAME = 'django_vue'
+APP_NAME = '{{ project_name }}'
 DJANGO_COMMAND = ['python', 'manage.py', 'runserver']
 NPM_COMMAND = ['npm', 'run', 'serve']
 CELERY_WORKER_COMMAND = ['celery', '-A', APP_NAME, 'worker', '--loglevel', 'info', '--without-heartbeat', '-Q', 'default', '--hostname', 'default-%h']

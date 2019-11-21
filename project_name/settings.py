@@ -1,5 +1,5 @@
 """
-Django settings for django_vue project on Heroku. For more info, see:
+Django settings for {{ project_name }} project on Heroku. For more info, see:
 https://github.com/Bobstin/healthdiary
 
 This template is based on:
@@ -69,7 +69,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'django_vue.urls'
+ROOT_URLCONF = '{{ project_name }}.urls'
 
 TEMPLATES = [
     {
@@ -88,7 +88,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'django_vue.wsgi.application'
+WSGI_APPLICATION = '{{ project_name }}.wsgi.application'
 
 
 # Database

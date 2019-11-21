@@ -1,4 +1,4 @@
-from django_vue.celery import app
+from {{ project_name }}.celery import app
 from datetime import datetime
 
 

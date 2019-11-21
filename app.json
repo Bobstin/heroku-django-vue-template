@@ -30,7 +30,7 @@
   },
   "formation": {
   },
-  "name": "django_vue",
+  "name": "{{ project_name }}",
   "scripts": {
   },
   "stack": "heroku-18"

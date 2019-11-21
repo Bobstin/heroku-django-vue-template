@@ -1,2 +1,2 @@
-web: gunicorn django_vue.wsgi
-celery: celery -A django_vue worker --loglevel info --without-heartbeat -Q default --hostname default-%h & celery -A django_vue beat --loglevel debug & wait -n
+web: gunicorn {{ project_name }}.wsgi
+celery: celery -A {{ project_name }} worker --loglevel info --without-heartbeat -Q default --hostname default-%h & celery -A {{ project_name }} beat --loglevel debug & wait -n

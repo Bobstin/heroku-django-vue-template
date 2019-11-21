@@ -41,7 +41,7 @@ To use this project, follow these steps:
 
 - Create the template in the local directory
 ```
-django-admin.py startproject --template=https://github.com/Bobstin/healthdiary/archive/master.zip --name=Procfile [PROJECT_NAME]
+django-admin.py startproject --template=https://github.com/Bobstin/healthdiary/archive/master.zip --name=Procfile,app.json [PROJECT_NAME]
 ```
 (If this doesn't work on windows, replace `django-admin.py` with `django-admin`)
 - Install the requirements:
