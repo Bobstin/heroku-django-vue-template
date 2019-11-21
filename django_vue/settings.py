@@ -1,6 +1,15 @@
 """
 Django settings for django_vue project on Heroku. For more info, see:
+https://github.com/Bobstin/healthdiary
+
+This template is based on:
 https://github.com/heroku/heroku-django-template
+It extends the template by adding
+ - Vue for increased front-end capabilities
+ - Celery for asyncronous task handling (including celery beat for regular tasks)
+ - SendGrid for email
+ - eslint, flake8, sylelint for linting
+ - pre-commit so that the linters run on commit
 
 For more information on this file, see
 https://docs.djangoproject.com/en/2.0/topics/settings/
