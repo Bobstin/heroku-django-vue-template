@@ -29,6 +29,12 @@
     }
   },
   "formation": {
+    "web": {
+      "quantity": 1
+    },
+    "celery": {
+      "quantity": 1
+    }
   },
   "name": "{{ project_name }}",
   "scripts": {
