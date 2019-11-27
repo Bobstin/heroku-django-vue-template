@@ -30,17 +30,12 @@ Note that [PROJECT_NAME] should meet the Heroku and GitHub name requirements: na
 
 To use this project, follow these steps:
 
-- Create your working environment. I recommend conda: `conda create -n [PROJECT_NAME]env python=3.6`
+### Create the initial environment
+- Create the environment (I recommend conda): `conda create -n [PROJECT_NAME]env python=3.6`
 - Activate that environment: `activate [PROJECT_NAME]env`
-- Install Django (`pip install django`)
-- Create a new project
-- Push the code to GitHub
-- Install the Python and JS requirements
-- Set up the Heroku App
-- Set up the local postgres database
+- Install Django: `pip install django`
 
-
-### Creating your project and installing the requirements
+### Create your project and install the requirements
 
 - Create the template in the local directory
 ```
@@ -49,7 +44,7 @@ cd [PROJECT_NAME]
 ```
 (If this doesn't work on windows, replace `django-admin.py` with `django-admin`)
 
-### Pushing the code to GitHub
+### Push the code to GitHub
 - Create a GitHub repo (note: do not initialize the project with a readme): https://help.github.com/en/github/getting-started-with-github/create-a-repo
 - At the top of your GitHub repository's Quick Setup page, click  to copy the remote repository URL. This will be `[GITHUB_URL]`
 - Push the code to this repo:
@@ -71,12 +66,12 @@ npm install
 cd ..
 ```
 
-### Setting up the Heroku app
+### Set up the Heroku app
 - Create the heroku pipeline, answering the questions as desired. I recommend deploying master to staging, enabling review apps, and creating a review app for each PR. CI is also helpful, but note that Heroku charges $10/month for the service. This will create the staging and production apps automatically, including add-ons.
  ```
 heroku pipelines:setup [PROJECT_NAME]
  ```
-
+At this point, you should be able to see the test app at `https://[PROJECT_NAME].herokuapp.com/`
 - Copy some key environment variables locally. The first command in each pair will print a value, which you set locally via the second command. Note: The instructions below are for Windows, but setting variables is different on Mac/*nix
 ```
 heroku config:get SENDGRID_USERNAME
@@ -93,7 +88,7 @@ setx CLOUDAMQP_URL [CLOUDAMQP_URL_FROM_PREV_COMMAND]
 ```
 - Close and restart your command prompt so the env variables are updated
 
-### Setting up the local postgres database
+### Set up the local postgres database
 - Run the following commands to set some local variables
 ```
 setx DJANGO_DB_NAME django_vue_db
