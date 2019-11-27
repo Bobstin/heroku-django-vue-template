@@ -1,6 +1,7 @@
 # Heroku Django Vue Starter Template
 
 A project starter template for Django 2.0 and VueJS
+
 This template is based on https://github.com/heroku/heroku-django-template, which included:
 - Production-ready configuration for Static Files, Database Settings, Gunicorn, etc.
 - Enhancements to Django's static file serving functionality via WhiteNoise.
@@ -24,15 +25,17 @@ Prerequisites:
  - Node.js (https://nodejs.org/en/)
  - A local postgres installation, including psql (https://www.postgresql.org/download/)
 ## How to Use
-In the instructions below, replace anything in square brackets `[]` with whatever you choose
+In the instructions below, replace anything in square brackets `[]` with whatever you choose.
+Note that [PROJECT_NAME] should meet the Heroku and GitHub name requirements: name must start with a letter, end with a letter or digit and can only contain lowercase letters, digits, and dashes.
 
 To use this project, follow these steps:
 
 - Create your working environment. I recommend conda: `conda create -n [PROJECT_NAME]env python=3.6`
 - Activate that environment: `activate [PROJECT_NAME]env`
-- Install Django (`$ pip install django`)
-- Create a new project and install the Python and JS requirements
+- Install Django (`pip install django`)
+- Create a new project
 - Push the code to GitHub
+- Install the Python and JS requirements
 - Set up the Heroku App
 - Set up the local postgres database
 
@@ -42,16 +45,10 @@ To use this project, follow these steps:
 - Create the template in the local directory
 ```
 django-admin.py startproject --template=https://github.com/Bobstin/healthdiary/archive/master.zip --name=Procfile,app.json [PROJECT_NAME]
+cd [PROJECT_NAME]
 ```
 (If this doesn't work on windows, replace `django-admin.py` with `django-admin`)
-- Install the requirements:
-```
-pip install -r requirements.txt
-pre-commit install
-cd vue
-npm install
-cd ..
-```
+
 ### Pushing the code to GitHub
 - Create a GitHub repo (note: do not initialize the project with a readme): https://help.github.com/en/github/getting-started-with-github/create-a-repo
 - At the top of your GitHub repository's Quick Setup page, click  to copy the remote repository URL. This will be `[GITHUB_URL]`
@@ -65,38 +62,33 @@ git remote -v
 git push origin master
 ```
 
+### Install the requirements:
+```
+pip install -r requirements.txt
+pre-commit install
+cd vue
+npm install
+cd ..
+```
+
 ### Setting up the Heroku app
-- Note: I recommend setting some env variables so that you can run things locally (any command starting with `setx`). The instructions below are for Windows, but setting variables is different on Mac/*nix
-- Create the heroku app, and set the buildpacks:
+- Create the heroku pipeline, answering the questions as desired. I recommend deploying master to staging, enabling review apps, and creating a review app for each PR. CI is also helpful, but note that Heroku charges $10/month for the service. This will create the staging and production apps automatically, including add-ons.
  ```
-heroku create [PROJECT_NAME]
-heroku buildpacks:set heroku/python --app [PROJECT_NAME]
-heroku buildpacks:add heroku/nodejs --app [PROJECT_NAME]
+heroku pipelines:setup [PROJECT_NAME]
  ```
-- **Note: all of the commands below provision free add-ons (as of writing). As your website scales, you may need to provision larger non-free versions.**
-- Add logging:
+
+- Copy some key environment variables locally. The first command in each pair will print a value, which you set locally via the second command. Note: The instructions below are for Windows, but setting variables is different on Mac/*nix
 ```
-heroku addons:create papertrail:choklad --app [PROJECT_NAME]
-```
-- Add database:
-```
-heroku addons:create heroku-postgresql:hobby-dev --app [PROJECT_NAME]
-```
-- Add sendgrid for sending emails and copy the environment variables locally:
-```
-heroku addons:create sendgrid:starter --app [PROJECT_NAME]
-heroku config:get SENDGRID_USERNAME --app [PROJECT_NAME]  # This will print the username you want
+heroku config:get SENDGRID_USERNAME
 setx SENDGRID_USERNAME [USERNAME_FROM_PREV_COMMAND]
-heroku config:get SENDGRID_PASSWORD --app [PROJECT_NAME]  # This will print the password you want
+
+heroku config:get SENDGRID_PASSWORD
 setx SENDGRID_PASSWORD [PASSWORD_FROM_PREV_COMMAND]
-```
-- Add redis and amqp so that you can use celery for async tasks, and copy the environment variables locally:
-```
-heroku addons:create heroku-redis:hobby-dev --app [PROJECT_NAME]
-heroku addons:create cloudamqp:lemur --app [PROJECT_NAME]
-heroku config:get REDIS_URL --app [PROJECT_NAME]  # This will print the redis url you want
+
+heroku config:get REDIS_URL
 setx REDIS_URL [REDIS_URL_FROM_PREV_COMMAND]
-heroku config:get CLOUDAMQP_URL --app [PROJECT_NAME]  # This will print the amqp url you want
+
+heroku config:get CLOUDAMQP_URL
 setx CLOUDAMQP_URL [CLOUDAMQP_URL_FROM_PREV_COMMAND]
 ```
 - Close and restart your command prompt so the env variables are updated
@@ -116,5 +108,19 @@ CREATE USER django_vue_user WITH PASSWORD '[LOCAL_DB_PASSWORD]';
 GRANT ALL PRIVILEGES ON DATABASE django_vue_db TO django_vue_user;
 \q
 ```
+- Close and restart your command prompt so the env variables are updated
 
+## Running the app
+To make it easier to run all of the processes required for this template, a custom command called `run_local` is added to `manage.py`.
+Note that node will report the app is running on port 8080 - this is not correct. Pay attention to where django is serving the app (`http://127.0.0.1:8000/`).
+
+It will start the following processes:
+- The django local server (`python manage.py runserver`); can be turned of with the `--no-django` flag
+- Node, including hot reloading! (`npm run serve`); can be turned of with the `--no-npm` flag
+- A celery worker (`celery -A [PROJECT_NAME] worker --loglevel info --without-heartbeat -Q default --hostname default-%h`); can be turned of with the `--no-celery` flag
+- Celery beat (`celery -A [PROJECT_NAME] beat --loglevel debug`); can be turned of with the `--no-celery` flag
+
+You can run it with `python manage.py run_local`; see the flags above if you don't want all of the processes.
+
+If you want to extend it, the script can be found in `example_app/management/commands/run_local.py`. Note that if you want to delete the example app, you should put this file in the same sub-directory but in the new app. 
 # License: MIT
