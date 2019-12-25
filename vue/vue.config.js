@@ -21,11 +21,11 @@ module.exports = {
     filenameHashing: false,
     productionSourceMap: false,
     publicPath: process.env.NODE_ENV === 'production'
-        ? '../'
+        ? '/'
         : 'http://localhost:8080/',
     outputDir: '../vue_built/vue/',
     assetsDir: process.env.NODE_ENV === 'production'
-        ? '../static/vue/'
+        ? './static/vue/'
         : '',
 
     chainWebpack: (config) => {
