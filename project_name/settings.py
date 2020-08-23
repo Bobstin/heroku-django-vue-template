@@ -56,6 +56,9 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'webpack_loader',
+    'rest_framework',
+    'django_filters',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
@@ -203,4 +206,11 @@ CELERY_BEAT_SCHEDULE = {
         'task': 'example_app.tasks.example_beat_task',
         'schedule': timedelta(minutes=1),
     },
+}
+
+# Django rest framework settings
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ),
 }
