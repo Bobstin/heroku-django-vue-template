@@ -26,21 +26,21 @@ Prerequisites:
  - A local postgres installation, including psql (https://www.postgresql.org/download/)
 ## How to Use
 In the instructions below, replace anything in square brackets `[]` with whatever you choose.
-Note that [PROJECT_NAME] should meet the Heroku and GitHub name requirements: name must start with a letter, end with a letter or digit and can only contain lowercase letters, digits, and dashes.
+Note that [{{ project_name }}] should meet the Heroku and GitHub name requirements: name must start with a letter, end with a letter or digit and can only contain lowercase letters, digits, and dashes.
 
 To use this project, follow these steps:
 
 ### Create the initial environment
-- Create the environment (I recommend conda): `conda create -n [PROJECT_NAME]env python=3.6`
-- Activate that environment: `activate [PROJECT_NAME]env`
+- Create the environment (I recommend conda): `conda create -n [{{ project_name }}]env python=3.6`
+- Activate that environment: `activate [{{ project_name }}]env`
 - Install Django: `pip install django`
 
 ### Create your project and install the requirements
 
 - Create the template in the local directory
 ```
-django-admin.py startproject --template=https://github.com/Bobstin/heroku-django-vue-template/archive/master.zip --name=Procfile,app.json [PROJECT_NAME]
-cd [PROJECT_NAME]
+django-admin.py startproject --template=https://github.com/Bobstin/heroku-django-vue-template/archive/master.zip --name=Procfile,app.json [{{ project_name }}]
+cd [{{ project_name }}]
 ```
 (If this doesn't work on windows, replace `django-admin.py` with `django-admin`)
 
@@ -69,9 +69,9 @@ cd ..
 ### Set up the Heroku app
 - Create the heroku pipeline, answering the questions as desired. I recommend deploying master to staging, enabling review apps, and creating a review app for each PR. CI is also helpful, but note that Heroku charges $10/month for the service. This will create the staging and production apps automatically, including add-ons.
  ```
-heroku pipelines:setup [PROJECT_NAME]
+heroku pipelines:setup [{{ project_name }}]
  ```
-At this point, you should be able to see the test app at `https://[PROJECT_NAME].herokuapp.com/`
+At this point, you should be able to see the test app at `https://[{{ project_name }}].herokuapp.com/`
 - Copy some key environment variables locally. The first command in each pair will print a value, which you set locally via the second command. Note: The instructions below are for Windows, but setting variables is different on Mac/*nix
 ```
 heroku config:get SENDGRID_USERNAME
@@ -112,8 +112,8 @@ Note that node will report the app is running on port 8080 - this is not correct
 It will start the following processes:
 - The django local server (`python manage.py runserver`); can be turned of with the `--no-django` flag
 - Node, including hot reloading! (`npm run serve`); can be turned of with the `--no-npm` flag
-- A celery worker (`celery -A [PROJECT_NAME] worker --loglevel info --without-heartbeat -Q default --hostname default-%h`); can be turned of with the `--no-celery` flag
-- Celery beat (`celery -A [PROJECT_NAME] beat --loglevel debug`); can be turned of with the `--no-celery` flag
+- A celery worker (`celery -A [{{ project_name }}] worker --loglevel info --without-heartbeat -Q default --hostname default-%h`); can be turned of with the `--no-celery` flag
+- Celery beat (`celery -A [{{ project_name }}] beat --loglevel debug`); can be turned of with the `--no-celery` flag
 
 You can run it with `python manage.py run_local`; see the flags above if you don't want all of the processes.
 

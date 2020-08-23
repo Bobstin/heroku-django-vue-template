@@ -1,6 +1,9 @@
 {
   "name": "example_app",
   "version": "0.1.1",
+  "engines": {
+    "node": "12.14"
+  },
   "scripts": {
     "postinstall": "cd vue && npm install --only=prod && npm install --only=dev && npm run build && npm prune --production"
   },
